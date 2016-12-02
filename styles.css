@@ -1,0 +1,30 @@
+canvas {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  /*position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);*/
+
+}
+
+html, body {
+  margin: 0;
+  overflow: hidden;
+}
+
+button {
+  background-color: #62F483;
+  color:#ffffff;
+  cursor:pointer;
+  font-size:22px;
+  text-decoration:none;
+  width: 300px;
+  height: 50px;
+  position: absolute;
+  left: 50%;
+  top: 25%;
+  transform: translate(-50%,-50%);
+}

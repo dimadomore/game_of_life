@@ -1,0 +1,17 @@
+{
+  "name": "game_of_life",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "babel src -d dist",
+    "watch": "babel src -d dist"
+  },
+  "babel": {
+    "presets": ["es2015"],
+    "plugins": [],
+    "minified": true
+  },
+  "author": "",
+  "license": "ISC"
+}

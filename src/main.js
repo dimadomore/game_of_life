@@ -1,4 +1,3 @@
-
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
@@ -12,11 +11,8 @@ var gridCopy =[];
 var fps = 60;
 var rows =  0;
 var cols = 0;
-var sceneWidth = 0;
-var sceneHeight = 0;
 var gameEngine;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+
 
 
 /*==============================================
@@ -49,18 +45,9 @@ var setGameEngine = function (callback) {
 
 
 
-/*==============================================
-Game Configrations
-===============================================*/
-function setGameSize (width, height) {
-  sceneWidth = width;
-  sceneHeight = height;
-}
-
-
 function generateGrid () {
-  rows = parseInt(sceneWidth / scaleCell);
-  cols = parseInt(sceneHeight / scaleCell);
+  rows = parseInt(window.innerWidth / scaleCell);
+  cols = parseInt(window.innerHeight / scaleCell);
 
   for (var x = 0; x < rows; x++) {
     grid[x] = [];
@@ -121,41 +108,24 @@ function getNextGridState() {
           totalCells += grid[j + 1][k + 1];
 
           if (grid[j][k] === 0) {
-              switch (totalCells) {
-                  case 3:
-                      gridCopy[j][k] = 1;
-                      break;
-                  default:
-                      gridCopy[j][k] = 0;
+              if (totalCells == 3) {
+                    gridCopy[j][k] = 1;
+              } else {
+                gridCopy[j][k] = 0;
               }
           } else if (grid[j][k] === 1) {
-              switch (totalCells) {
-                  case 0:
-                  case 1:
-                      gridCopy[j][k] = 0;
-                      break;
-                  case 2:
-                  case 3:
-                      gridCopy[j][k] = 1;
-                      break;
-                  case 4:
-                  case 5:
-                  case 6:
-                  case 7:
-                  case 8:
-                      gridCopy[j][k] = 0;
-                      break;
-                  default:
-                      gridCopy[j][k] = 0;
+              if (totalCells == 3 || totalCells ==2) {
+                gridCopy[j][k] = 1;
+              } else {
+                gridCopy[j][k] = 0;
               }
-
           }
       }
     }
 
     for (var j = 0; j < rows; j++) {
         for (var k = 0; k < cols; k++) {
-            grid[j][k] = gridCopy[j][k];
+          grid[j][k] = gridCopy[j][k];
         }
     }
 }
@@ -168,11 +138,12 @@ function clearCanvas () {
 
 
 var init = function () {
-  setGameSize(canvas.width, canvas.height);
+  //setGameSize(canvas.width, canvas.height);
   generateGrid();
   seedGrid(50000);
   drawGrid();
   setGameEngine(draw);
+
 }
 
 

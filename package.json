@@ -5,12 +5,12 @@
   "main": "main.js",
   "scripts": {
     "build": "babel src -d dist",
-    "watch": "babel src -d dist"
+    "watch": "babel src -d dist -w"
   },
   "babel": {
     "presets": ["es2015"],
     "plugins": [],
-    "minified": true
+    "minified": false
   },
   "author": "",
   "license": "ISC"

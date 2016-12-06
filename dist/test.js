@@ -24,11 +24,10 @@ var Grid = function () {
     _classCallCheck(this, Grid);
 
     this.scaleCell = scaleCell;
-    this.rows = parseInt(1000 / scaleCell);
-    this.cols = parseInt(700 / scaleCell);
+    this.rows = parseInt(canvas.width / scaleCell);
+    this.cols = parseInt(canvas.height / scaleCell);
     this.grid = [];
     this.gridCopy = [];
-    console.log("Class Grid successfully created");
   }
 
   _createClass(Grid, [{
@@ -96,8 +95,8 @@ var Grid = function () {
         }
       }
 
-      for (var _j = 1; _j < this.rows - 1; _j++) {
-        for (var _k = 1; _k < this.cols - 1; _k++) {
+      for (var _j = 0; _j < this.rows; _j++) {
+        for (var _k = 0; _k < this.cols; _k++) {
           this.grid[_j][_k] = this.gridCopy[_j][_k];
         }
       }
@@ -123,29 +122,28 @@ var Game = function () {
 
     _classCallCheck(this, Game);
 
+    this.fps = fps;
     this.grid = new Grid();
     this.grid.generate();
     this.grid.seed();
-    this.grid.draw();
-    this.requestAnimFrame = function () {
-      return requestAnimationFrame || webkitRequestAnimationFrame || mozRequestAnimationFrame || function (callback) {
-        setTimeout(callback, 1000 / 60);
-      };
-    }();
-    console.log("Success");
   }
 
   _createClass(Game, [{
-    key: 'play',
-    value: function play() {
-      this.requestAnimFrame(this.render());
+    key: 'start',
+    value: function start() {
+      this.grid.draw();
     }
   }, {
     key: 'render',
     value: function render() {
-      clearCanvas();
-      this.grid.getNextState();
-      this.grid.draw();
+      var _this = this;
+
+      setTimeout(function () {
+        requestAnimationFrame(_this.render.bind(_this));
+        clearCanvas();
+        _this.grid.getNextState();
+        _this.grid.draw();
+      }, 1000 / this.fps);
     }
   }], [{
     key: 'getDefaultFps',
@@ -158,4 +156,6 @@ var Game = function () {
 }();
 
 var g = new Game();
-g.play();
+
+g.start();
+g.render();

@@ -6,13 +6,15 @@ var context = canvas.getContext('2d');
 /*==============================================
 Variables
 ===============================================*/
-var scaleCell = 3;
+var scaleCell = 5;
 var grid = [];
 var gridCopy = [];
-var fps = 60;
+var fps = 5;
 var rows = 0;
 var cols = 0;
 var gameEngine;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 /*==============================================
 requestAnimationFrame Setting
@@ -39,8 +41,8 @@ var setGameEngine = function setGameEngine(callback) {
 /*==============================================*/
 
 function generateGrid() {
-  rows = parseInt(window.innerWidth / scaleCell);
-  cols = parseInt(window.innerHeight / scaleCell);
+  rows = parseInt(canvas.width / scaleCell);
+  cols = parseInt(canvas.height / scaleCell);
 
   for (var x = 0; x < rows; x++) {
     grid[x] = [];

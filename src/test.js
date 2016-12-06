@@ -1,5 +1,7 @@
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 function getRandomNumber(min, max) {
   min = Math.ceil(min);
@@ -7,21 +9,18 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-
 function clearCanvas () {
   context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 
-
 class Grid {
-  constructor(scaleCell = Grid.getDefaultScaleCell()) {
+  constructor(scaleCell = Grid.getDefaultScaleCell(), ) {
     this.scaleCell = scaleCell;
-    this.rows = parseInt(1000 / scaleCell);
-    this.cols = parseInt(700 / scaleCell);
+    this.rows = parseInt(canvas.width / scaleCell);
+    this.cols = parseInt(canvas.height / scaleCell);
     this.grid = [];
     this.gridCopy = [];
-    console.log("Class Grid successfully created");
   }
 
   generate() {
@@ -82,8 +81,8 @@ class Grid {
       }
     }
 
-    for (let j = 1; j < this.rows - 1; j++) {
-        for (let k = 1; k < this.cols - 1; k++) {
+    for (let j = 0; j < this.rows; j++) {
+        for (let k = 0; k < this.cols; k++) {
             this.grid[j][k] = this.gridCopy[j][k];
         }
     }
@@ -97,35 +96,27 @@ class Grid {
     return 50000;
   }
 }
-
-
 class Game {
   constructor(fps = Game.getDefaultFps()) {
+    this.fps = fps;
     this.grid = new Grid();
     this.grid.generate();
     this.grid.seed();
-    this.grid.draw();
-    this.requestAnimFrame = (function(){
-      return  requestAnimationFrame   ||
-          webkitRequestAnimationFrame ||
-          mozRequestAnimationFrame    ||
-          function( callback ){
-            setTimeout(callback, 1000 / 60);
-          };
-    })();
-    console.log("Success");
   }
 
-  play() {
-      this.requestAnimFrame(this.render());
+  start() {
+    this.grid.draw();
   }
 
   render() {
-    clearCanvas();
-    this.grid.getNextState();
-    this.grid.draw();
-  }
+   setTimeout(() => {
+        requestAnimationFrame(this.render.bind(this));
+        clearCanvas();
+        this.grid.getNextState();
+        this.grid.draw();
+    }, 1000 / this.fps);
 
+  }
 
   static getDefaultFps() {
     return 60;
@@ -134,4 +125,6 @@ class Game {
 }
 
 let g = new Game();
-g.play();
+
+g.start();
+g.render();

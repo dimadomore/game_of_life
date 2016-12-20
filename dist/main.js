@@ -9,7 +9,7 @@ Variables
 var scaleCell = 5;
 var grid = [];
 var gridCopy = [];
-var fps = 5;
+var fps = 60;
 var rows = 0;
 var cols = 0;
 var gameEngine;

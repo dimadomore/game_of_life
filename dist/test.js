@@ -6,6 +6,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 function getRandomNumber(min, max) {
   min = Math.ceil(min);
@@ -104,12 +106,12 @@ var Grid = function () {
   }], [{
     key: 'getDefaultScaleCell',
     value: function getDefaultScaleCell() {
-      return 3;
+      return 5;
     }
   }, {
     key: 'getDefaultCellsCount',
     value: function getDefaultCellsCount() {
-      return 50000;
+      return 10000;
     }
   }]);
 
